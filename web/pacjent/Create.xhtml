@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PacjentCreateDlg" widgetVar="PacjentCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePacjentTitle}">
+            <h:form id="PacjentCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pacjentController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_imie}" for="imie" />
+                        <p:inputText id="imie" value="#{pacjentController.selected.imie}" title="#{bundle.CreatePacjentTitle_imie}" required="true" requiredMessage="#{bundle.CreatePacjentRequiredMessage_imie}">
+                            <f:validateLength minimum="2" maximum="50"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_nazwisko}" for="nazwisko" />
+                        <p:inputText id="nazwisko" value="#{pacjentController.selected.nazwisko}" title="#{bundle.CreatePacjentTitle_nazwisko}" required="true" requiredMessage="#{bundle.CreatePacjentRequiredMessage_nazwisko}">
+                            <f:validateLength minimum="2" maximum="50"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_pesel}" for="pesel" />
+                        <p:inputText id="pesel" value="#{pacjentController.selected.pesel}" title="#{bundle.CreatePacjentTitle_pesel}" required="true" requiredMessage="#{bundle.CreatePacjentRequiredMessage_pesel}">
+                            <f:validateRegex pattern="[0-9]{11}"/>
+                            <f:validator validatorId="com.validator.PeselValidator"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_dataUr}" for="dataUr" />
+                        <p:calendar id="dataUr" mode="inline" locale="pl" pattern="MM/dd/yyyy" value="#{pacjentController.selected.dataUr}" title="#{bundle.EditPacjentTitle_dataUr}" required="true" requiredMessage="#{bundle.EditPacjentRequiredMessage_dataUr}" showOn="button" navigator="true" maxdate="#{DateBean.date}"/>
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_adres}" for="adres" />
+                        <p:inputText id="adres" value="#{pacjentController.selected.adres}" title="#{bundle.CreatePacjentTitle_adres}" required="true" requiredMessage="#{bundle.CreatePacjentRequiredMessage_adres}"/>
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{pacjentController.selected.tel}" title="#{bundle.CreatePacjentTitle_tel}">
+                            <f:validateRegex  pattern="^$|[0-9]{9}"/>
+                        </p:inputText>
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_waga}" for="waga" />
+                        <p:inputText id="waga" value="#{pacjentController.selected.waga}" title="#{bundle.CreatePacjentTitle_waga}" />
+                        <p:outputLabel value="#{bundle.CreatePacjentLabel_wzrost}" for="wzrost" />
+                        <p:inputText id="wzrost" value="#{pacjentController.selected.wzrost}" title="#{bundle.CreatePacjentTitle_wzrost}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pacjentController.create}" value="#{bundle.Save}" update="display,:PacjentListForm:datalist,:growl" oncomplete="handleSubmit(args,'PacjentCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PacjentCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

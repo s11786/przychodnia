@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PacjentEditDlg" widgetVar="PacjentEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPacjentTitle}">
+            <h:form id="PacjentEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pacjentController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_imie}" for="imie" />
+                        <p:inputText id="imie" value="#{pacjentController.selected.imie}" title="#{bundle.EditPacjentTitle_imie}" required="true" requiredMessage="#{bundle.EditPacjentRequiredMessage_imie}"/>
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_nazwisko}" for="nazwisko" />
+                        <p:inputText id="nazwisko" value="#{pacjentController.selected.nazwisko}" title="#{bundle.EditPacjentTitle_nazwisko}" required="true" requiredMessage="#{bundle.EditPacjentRequiredMessage_nazwisko}"/>
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_pesel}" for="pesel" />
+                        <p:inputText id="pesel" value="#{pacjentController.selected.pesel}" title="#{bundle.EditPacjentTitle_pesel}" required="true" requiredMessage="#{bundle.EditPacjentRequiredMessage_pesel}"/>
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_dataUr}" for="dataUr" />
+                        <p:calendar id="dataUr" pattern="MM/dd/yyyy" value="#{pacjentController.selected.dataUr}" title="#{bundle.EditPacjentTitle_dataUr}" required="true" requiredMessage="#{bundle.EditPacjentRequiredMessage_dataUr}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_adres}" for="adres" />
+                        <p:inputText id="adres" value="#{pacjentController.selected.adres}" title="#{bundle.EditPacjentTitle_adres}" required="true" requiredMessage="#{bundle.EditPacjentRequiredMessage_adres}"/>
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{pacjentController.selected.tel}" title="#{bundle.EditPacjentTitle_tel}" />
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_waga}" for="waga" />
+                        <p:inputText id="waga" value="#{pacjentController.selected.waga}" title="#{bundle.EditPacjentTitle_waga}" />
+                        <p:outputLabel value="#{bundle.EditPacjentLabel_wzrost}" for="wzrost" />
+                        <p:inputText id="wzrost" value="#{pacjentController.selected.wzrost}" title="#{bundle.EditPacjentTitle_wzrost}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pacjentController.update}" value="#{bundle.Save}" update="display,:PacjentListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PacjentEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PacjentEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
